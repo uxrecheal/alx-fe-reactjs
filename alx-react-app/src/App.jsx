@@ -12,9 +12,9 @@ function App() {
 
   return (
     <>
-    <Header/>
-    <MainContent/>
-    <Footer/>
+      <Header/>
+      <MainContent/>
+      <Footer/>
       <WelcomeMessage />
       <div>
         <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">
