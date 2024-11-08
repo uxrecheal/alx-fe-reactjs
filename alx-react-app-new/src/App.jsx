@@ -7,6 +7,7 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
+import Counter from './components/Counter';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,6 +18,7 @@ function App() {
       <Header />
       <MainContent />
       <Footer />
+      <Counter />
       <UserProfile name="Dorinda Fulsee" age="42" bio="Went to harvard University and graduated with honors" />
       <div>
         <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">
