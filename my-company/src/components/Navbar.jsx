@@ -4,7 +4,8 @@ function Navbar() {
   const navStyle = {
     display: 'flex',              // Enable flexbox
     justifyContent: 'space-between', // Distribute links evenly with space between them
-    alignItems: 'center',         // bar
+    alignItems: 'center',
+    textDecoration: 'none',     
     backgroundColor: '#333',      
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
   };
