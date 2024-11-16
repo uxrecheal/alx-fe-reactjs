@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import AddRecipeForm from './components/AddRecipeForm,jsx/index.js'
+import AddRecipeForm from './components/AddRecipeForm.jsx/index.js'
 import './App.css'
 import RecipeList from './components/RecipeList.jsx'
 
