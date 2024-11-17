@@ -5,7 +5,7 @@ function Navbar() {
     display: 'flex',              // Enable flexbox
     justifyContent: 'space-between', // Distribute links evenly with space between them
     alignItems: 'center',
-    textDecoration: 'none',     
+    textDecoration:  'none',         // bar
     backgroundColor: '#333',      
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
   };
