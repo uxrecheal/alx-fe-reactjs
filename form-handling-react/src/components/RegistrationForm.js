@@ -1,91 +1,91 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-function RegistrationForm() {
+const RegistrationForm = () => {
+  // State for form fields
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: '', // Matches `value={username}`
+    email: '',    // Matches `value={email}`
+    password: '', // Matches `value={password}`
   });
 
-  const [errors, setErrors] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+  const [errors, setErrors] = useState('');
 
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value } = e.target; // Correctly destructure `name` and `value`
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value, // Dynamically update the appropriate field in formData
+    }));
   };
 
-  const validate = () => {
-    let newErrors = {};
-    if (!formData.username) {
-      newErrors.username = 'Username is required';
-    }
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (validate()) {
-      // Simulate API submission
-      console.log('Form submitted', formData);
+    // Destructure form fields directly for explicit validation
+    const { username, email, password } = formData;
+
+    // Explicit validation for individual fields
+    if (!username) {
+      setErrors('Username is required');
+      return;
     }
+    if (!email) {
+      setErrors('Email is required');
+      return;
+    }
+    if (!password) {
+      setErrors('Password is required');
+      return;
+    }
+
+    // Clear errors and log the form data
+    setErrors('');
+    console.log('Form submitted successfully:', { username, email, password });
+
+    // Reset form
+    setFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
   };
+
+  // Destructure form fields for easier usage
+  const { username, email, password } = formData;
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        {errors.username && <p>{errors.username}</p>}
-      </div>
+      {errors && <p style={{ color: 'red' }}>{errors}</p>}
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {errors.email && <p>{errors.email}</p>}
-      </div>
+      <label htmlFor="username">Name</label>
+      <input
+        type="text"
+        name="username" // Must match the key in the state
+        value={username} // Explicitly destructured value
+        onChange={handleChange} // Update state on change
+      />
 
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {errors.password && <p>{errors.password}</p>}
-      </div>
+      <label htmlFor="email">Email</label>
+      <input
+        type="email"
+        name="email" // Must match the key in the state
+        value={email} // Explicitly destructured value
+        onChange={handleChange} // Update state on change
+      />
 
-      <button type="submit">Register</button>
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        name="password" // Must match the key in the state
+        value={password} // Explicitly destructured value
+        onChange={handleChange} // Update state on change
+      />
+
+      <button type="submit">Submit</button>
     </form>
   );
-}
+};
 
 export default RegistrationForm;
