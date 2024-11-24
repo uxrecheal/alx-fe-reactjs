@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const FormikForm = () => {
-  // Define the validation schema with Yup
+  // Validation schema with Yup
   const validationSchema = Yup.object({
     username: Yup.string().required('Username is required.'),
     email: Yup.string()
@@ -16,7 +16,23 @@ const FormikForm = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     console.log('Form Submitted:', values);
-    setSubmitting(false); // Stop the submitting process after form submission
+    setSubmitting(false); // Stop submitting after successful submission
+
+    // Simulate API request
+    fetch('https://mockapi.com/register', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Registration Successful:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -35,11 +51,7 @@ const FormikForm = () => {
               name="username"
               placeholder="Enter username"
             />
-            <ErrorMessage
-              name="username"
-              component="span"
-              className="error"
-            />
+            <ErrorMessage name="username" component="span" className="error" />
           </div>
 
           <div>
@@ -50,11 +62,7 @@ const FormikForm = () => {
               name="email"
               placeholder="Enter email"
             />
-            <ErrorMessage
-              name="email"
-              component="span"
-              className="error"
-            />
+            <ErrorMessage name="email" component="span" className="error" />
           </div>
 
           <div>
@@ -65,11 +73,7 @@ const FormikForm = () => {
               name="password"
               placeholder="Enter password"
             />
-            <ErrorMessage
-              name="password"
-              component="span"
-              className="error"
-            />
+            <ErrorMessage name="password" component="span" className="error" />
           </div>
 
           <button type="submit" disabled={isSubmitting}>

@@ -6,7 +6,6 @@ const RegistrationForm = () => {
     email: '',
     password: '',
   });
-
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -23,16 +22,30 @@ const RegistrationForm = () => {
     if (!formData.email.trim()) newErrors.email = 'Email is required.';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       newErrors.email = 'Enter a valid email.';
-    if (!formData.password.trim())
-      newErrors.password = 'Password is required.';
+    if (!formData.password.trim()) newErrors.password = 'Password is required.';
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // No errors mean valid form
+    return Object.keys(newErrors).length === 0; // No errors means valid form
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log('Form Submitted:', formData);
+      // Simulate API request
+      fetch('https://mockapi.com/register', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Registration Successful:', data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
   };
 
