@@ -11,12 +11,14 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/about" element={<About />} />
-        <Route
-          path="/profile/*"
-          element={<ProtectedRoute component={Profile} />}
-        />
-        <Route path="/blog/:postId" element={<BlogPost />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile/*" element={<Profile />} />
+        </Route>
+
+        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
     </Router>
   );
