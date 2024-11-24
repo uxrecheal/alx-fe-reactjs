@@ -1,24 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import RegistrationForm from './components/RegistrationForm.jsx'
-import formikForm from './components/formikForm.jsx'
+import React from 'react';
+import RegistrationForm from './components/RegistrationForm';
+import FormikForm from './components/formikForm';
 
-const queryClient = new QueryClient();
 function App() {
- 
-
   return (
-    <>
-    {/* <RegistrationForm /> */}
-    <formikForm />
-     <h1>Welcome to Vite</h1>
-      <p>
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Registration Form</h1>
+      <FormikForm /> 
+    </div>
+  );
 }
 
-export default App
+export default App;
