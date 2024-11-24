@@ -9,13 +9,9 @@ const formikForm = () => {
 		<Formik>
 			initialValues ={{ name: "", email: "", password: "" }}
 			validationSchema ={Yup.object({
-				name: Yup.string()
-					.max(10, "Must be 10 characters or less")
-					.required("Required"),
+				name: Yup.string().required("Required"),
 				email: Yup.string().email("invalid email address").required("Required"),
-				password: Yup.string()
-					.min(10, "Must be at least 10 characters long")
-					.required("Required"),
+				password: Yup.string().required("Required"),
 			})}
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
