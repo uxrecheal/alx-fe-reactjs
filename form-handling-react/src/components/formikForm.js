@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const FormikForm = () => {
-  // Define the validation schema
+  // Define the validation schema with Yup
   const validationSchema = Yup.object({
     username: Yup.string().required('Username is required.'),
     email: Yup.string()
@@ -16,7 +16,7 @@ const FormikForm = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     console.log('Form Submitted:', values);
-    setSubmitting(false);
+    setSubmitting(false); // Stop the submitting process after form submission
   };
 
   return (
@@ -28,25 +28,48 @@ const FormikForm = () => {
       {({ isSubmitting }) => (
         <Form>
           <div>
-            <label>Username:</label>
-            <Field type="text" name="username" placeholder="Enter username" />
-            <ErrorMessage name="username" component="span" className="error" />
+            <label htmlFor="username">Username:</label>
+            <Field
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter username"
+            />
+            <ErrorMessage
+              name="username"
+              component="span"
+              className="error"
+            />
           </div>
 
           <div>
-            <label>Email:</label>
-            <Field type="email" name="email" placeholder="Enter email" />
-            <ErrorMessage name="email" component="span" className="error" />
+            <label htmlFor="email">Email:</label>
+            <Field
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter email"
+            />
+            <ErrorMessage
+              name="email"
+              component="span"
+              className="error"
+            />
           </div>
 
           <div>
-            <label>Password:</label>
+            <label htmlFor="password">Password:</label>
             <Field
               type="password"
+              id="password"
               name="password"
               placeholder="Enter password"
             />
-            <ErrorMessage name="password" component="span" className="error" />
+            <ErrorMessage
+              name="password"
+              component="span"
+              className="error"
+            />
           </div>
 
           <button type="submit" disabled={isSubmitting}>
