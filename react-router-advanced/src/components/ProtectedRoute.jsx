@@ -1,12 +1,17 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const isAuthenticated = () => {
-  return localStorage.getItem("authenticated") === "true";
+// Simulate authentication
+const useAuth = () => {
+  // Replace this logic with your actual authentication logic
+  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  return isAuthenticated;
 };
 
-const ProtectedRoute = ({ component: Component }) => {
-  return isAuthenticated() ? <Component /> : <Navigate to="/" />;
+const ProtectedRoute = () => {
+  const isAuthenticated = useAuth();
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default ProtectedRoute;
