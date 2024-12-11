@@ -10,14 +10,18 @@ const AddRecipeForm = () => {
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
+    console.log(e); // Debugging
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simple validation
+    // Validation
     if (!formData.title || !formData.ingredients || !formData.steps) {
       setError('All fields are required.');
       return;
@@ -29,25 +33,16 @@ const AddRecipeForm = () => {
     }
 
     setError('');
-    // Handle form submission (e.g., send data to server or update state)
     console.log('Recipe submitted:', formData);
   };
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
       <h1 className="text-3xl font-bold text-center mb-6">Add a New Recipe</h1>
-      <form
-        className="bg-white shadow-lg rounded-lg p-6"
-        onSubmit={handleSubmit}
-      >
-        {error && (
-          <div className="mb-4 text-red-600 font-medium">{error}</div>
-        )}
+      <form className="bg-white shadow-lg rounded-lg p-6" onSubmit={handleSubmit}>
+        {error && <div className="mb-4 text-red-600 font-medium">{error}</div>}
         <div className="mb-4">
-          <label
-            htmlFor="title"
-            className="block text-gray-700 font-semibold mb-2"
-          >
+          <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">
             Recipe Title
           </label>
           <input
@@ -61,10 +56,7 @@ const AddRecipeForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="ingredients"
-            className="block text-gray-700 font-semibold mb-2"
-          >
+          <label htmlFor="ingredients" className="block text-gray-700 font-semibold mb-2">
             Ingredients (comma-separated)
           </label>
           <textarea
@@ -78,10 +70,7 @@ const AddRecipeForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="steps"
-            className="block text-gray-700 font-semibold mb-2"
-          >
+          <label htmlFor="steps" className="block text-gray-700 font-semibold mb-2">
             Preparation Steps
           </label>
           <textarea
