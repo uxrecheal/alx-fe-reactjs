@@ -10,8 +10,11 @@ const AddRecipeForm = () => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value } = e.target; // Access name and value correctly
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value, // Dynamically set the field based on the input's name
+    }));
   };
 
   const validateForm = () => {
