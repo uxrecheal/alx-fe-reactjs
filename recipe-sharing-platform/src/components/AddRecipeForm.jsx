@@ -1,126 +1,90 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const AddRecipeForm = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    ingredients: "",
-    steps: "",
+    title: '',
+    ingredients: '',
+    steps: '',
   });
 
-  const [errors, setErrors] = useState({});
-
-  // Handles input changes
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value; // Destructure event.target correctly
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value, // Dynamically update state based on input name
-    }));
+  const handleChange = (e) => {
+    const name= e.target.name;
+    const value = e.target.value
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Validates the form fields
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.title.trim()) newErrors.title = "Recipe title is required.";
-    if (!formData.ingredients.trim())
-      newErrors.ingredients = "Ingredients are required.";
-    if (!formData.steps.trim())
-      newErrors.steps = "Preparation steps are required.";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  // Handles form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      console.log("Form Data:", formData);
-      alert("Recipe submitted successfully!");
-      setFormData({ title: "", ingredients: "", steps: "" }); // Reset form
-      setErrors({});
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.title || !formData.ingredients || !formData.steps) {
+      alert('All fields are required!');
+      return;
     }
+    console.log('Submitted data:', formData);
+    // Reset form
+    setFormData({ title: '', ingredients: '', steps: '' });
   };
 
   return (
-    <div className="container mx-auto p-4 max-w-lg">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        Add a New Recipe
-      </h2>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-lg"
-      >
-        {/* Title Field */}
+    <div className="container mx-auto p-4">
+      <h2 className="text-3xl font-bold text-center mb-6">Add a New Recipe</h2>
+      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6">
         <div className="mb-4">
-          <label
-            htmlFor="title"
-            className="block text-gray-700 font-semibold mb-2"
-          >
+          <label htmlFor="title" className="block text-lg font-medium text-gray-700">
             Recipe Title
           </label>
           <input
             type="text"
             id="title"
-            name="title" // Must match the state key
+            name="title"
             value={formData.title}
-            onChange={handleChange} // Properly bound
-            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded-lg mt-1 focus:ring focus:ring-blue-200"
+            placeholder="Enter the recipe title"
           />
-          {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title}</p>
-          )}
         </div>
-
-        {/* Ingredients Field */}
         <div className="mb-4">
-          <label
-            htmlFor="ingredients"
-            className="block text-gray-700 font-semibold mb-2"
-          >
-            Ingredients (comma-separated)
+          <label htmlFor="ingredients" className="block text-lg font-medium text-gray-700">
+            Ingredients
           </label>
           <textarea
             id="ingredients"
-            name="ingredients" // Must match the state key
+            name="ingredients"
             value={formData.ingredients}
             onChange={handleChange}
             rows="4"
-            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 border border-gray-300 rounded-lg mt-1 focus:ring focus:ring-blue-200"
+            placeholder="List the ingredients, separated by commas"
           ></textarea>
-          {errors.ingredients && (
-            <p className="text-red-500 text-sm">{errors.ingredients}</p>
-          )}
         </div>
-
-        {/* Steps Field */}
         <div className="mb-4">
-          <label
-            htmlFor="steps"
-            className="block text-gray-700 font-semibold mb-2"
-          >
+          <label htmlFor="steps" className="block text-lg font-medium text-gray-700">
             Preparation Steps
           </label>
           <textarea
             id="steps"
-            name="steps" // Must match the state key
+            name="steps"
             value={formData.steps}
             onChange={handleChange}
             rows="6"
-            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 border border-gray-300 rounded-lg mt-1 focus:ring focus:ring-blue-200"
+            placeholder="Describe the preparation steps"
           ></textarea>
-          {errors.steps && (
-            <p className="text-red-500 text-sm">{errors.steps}</p>
-          )}
         </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-        >
-          Submit Recipe
-        </button>
+        <div className="flex flex-col md:flex-row gap-4">
+          <button
+            type="submit"
+            className="w-full md:w-auto bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+          >
+            Submit Recipe
+          </button>
+          <button
+            type="button"
+            onClick={() => setFormData({ title: '', ingredients: '', steps: '' })}
+            className="w-full md:w-auto bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+          >
+            Clear Form
+          </button>
+        </div>
       </form>
     </div>
   );
