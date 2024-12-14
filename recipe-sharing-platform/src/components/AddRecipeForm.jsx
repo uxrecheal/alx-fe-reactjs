@@ -9,32 +9,33 @@ const AddRecipeForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target; // Access name and value correctly
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value, // Dynamically set the field based on the input's name
+  // Handles input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target; // Destructure event.target correctly
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value, // Dynamically update state based on input name
     }));
   };
 
+  // Validates the form fields
   const validateForm = () => {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = 'Recipe title is required.';
     if (!formData.ingredients.trim()) newErrors.ingredients = 'Ingredients are required.';
     if (!formData.steps.trim()) newErrors.steps = 'Preparation steps are required.';
-    if (formData.ingredients.split(',').length < 2)
-      newErrors.ingredients = 'Please include at least two ingredients.';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Handles form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (validateForm()) {
-      console.log('Form submitted:', formData);
-      // Clear the form after successful submission
-      setFormData({ title: '', ingredients: '', steps: '' });
+      console.log('Form Data:', formData);
       alert('Recipe submitted successfully!');
+      setFormData({ title: '', ingredients: '', steps: '' }); // Reset form
+      setErrors({});
     }
   };
 
@@ -44,7 +45,7 @@ const AddRecipeForm = () => {
         Add a New Recipe
       </h2>
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg">
-        {/* Recipe Title */}
+        {/* Title Field */}
         <div className="mb-4">
           <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">
             Recipe Title
@@ -52,22 +53,22 @@ const AddRecipeForm = () => {
           <input
             type="text"
             id="title"
-            name="title"
+            name="title" // Must match the state key
             value={formData.title}
-            onChange={handleChange}
+            onChange={handleChange} // Properly bound
             className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
         </div>
 
-        {/* Ingredients */}
+        {/* Ingredients Field */}
         <div className="mb-4">
           <label htmlFor="ingredients" className="block text-gray-700 font-semibold mb-2">
             Ingredients (comma-separated)
           </label>
           <textarea
             id="ingredients"
-            name="ingredients"
+            name="ingredients" // Must match the state key
             value={formData.ingredients}
             onChange={handleChange}
             rows="4"
@@ -78,14 +79,14 @@ const AddRecipeForm = () => {
           )}
         </div>
 
-        {/* Preparation Steps */}
+        {/* Steps Field */}
         <div className="mb-4">
           <label htmlFor="steps" className="block text-gray-700 font-semibold mb-2">
             Preparation Steps
           </label>
           <textarea
             id="steps"
-            name="steps"
+            name="steps" // Must match the state key
             value={formData.steps}
             onChange={handleChange}
             rows="6"
